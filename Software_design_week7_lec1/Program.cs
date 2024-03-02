@@ -5,24 +5,24 @@ namespace HelloWorld
 
     class Book
     {
-        //Field
+        //Field Attribute
         String title;
         String author;
-        string Isbn;
+        string isbn;
         bool isavailable = true;
 
         //properties
 
         public string Title {  get { return title; } }
         public string Author { get { return author; } }
-        public string isbn { get { return Isbn; } }
+        public string Isbn { get { return isbn; } }
         public bool Isavailable { get { return isavailable; } set { isavailable = value; } } 
 
         public Book(string btitle,string bauthor,string bisbn)
         {
             title = btitle;
             author = bauthor;   
-            Isbn = bisbn;
+            isbn = bisbn;
         }
     }
     class Library
@@ -45,7 +45,7 @@ namespace HelloWorld
             }
         }
 
-        public void checkbook(string isbn)
+        public void checkOutbook(string isbn)
         {
             for (int i = 0; i < count; i++)
             {
@@ -53,11 +53,12 @@ namespace HelloWorld
                 {
                     books[i].Isavailable = false;
                     Console.WriteLine($"Book checkout, here is the remaining avalilable books.");
+                    break;
                 }
-                
+                Listavailablebook();
             }
         }
-        public void returnbook(string isbn)
+        public void Returnbook(string isbn)
         {
             for (int i = 0; i < count; i++)
             {
@@ -67,17 +68,18 @@ namespace HelloWorld
                     Console.WriteLine($"Book return, here is the remaining avalilable books.");
                     break;
                 }
-
             }
+            Listavailablebook();
         }
         public void removebook(string isbn)
         {
             int index = -1;
+
             for (int i = 0; i < count; i++)
             {
                 if (books[i].Isbn == isbn)
                 {
-                    index = 1;
+                    index = i;
                 }
             }
             books[index] = null;
@@ -86,6 +88,7 @@ namespace HelloWorld
                 books[i] = books[i+1];
             }
             count--;
+            Console.WriteLine("---------------------------------------------------------");
             Listavailablebook();
         }
     }
@@ -102,6 +105,10 @@ namespace HelloWorld
             library.Addbook(book2);
             library.Addbook(book3);
             
+            library.Listavailablebook();
+            library.checkOutbook("4d58f42d7");
+            library.Returnbook("4d58f42d7");
+            library.removebook("4d58f42d7");
 
         }
     }
